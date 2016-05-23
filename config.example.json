@@ -1,0 +1,28 @@
+{
+	"settings":{
+		"debugSymbolPaths": [],
+		"outputDebugFile": true,
+		"maximumCallstackLength": 10
+	},
+	"filters":{
+		"excludeFromCallstacks":{
+			"systemModules": [],
+			"ignoredModules": ["msvcr110.dll", "ntdll.dll", "kernel32.dll"],
+			"ignoredCodeFiles": [],
+			"ignoredCodeLines": []
+		},
+		"ignoreCallstacks":{
+			"ignoredCodeFiles": [],
+			"ignoredCodeLines": [],
+			"ignoredModuleOffsets": [[]]
+		}
+	},
+	"memoryLeakSettings":{
+		"trackAllLeaks": true,
+		"aggregateTotals": true,
+		"aggregateCallstackGroupLevel": 5,
+		"groupingLeaks": true,
+		"aggregateGrouping": true,
+		"intensiveGrouping": false
+	}
+}

@@ -1,0 +1,7 @@
+
+LIBRARY "InjectableLightweightLogger"
+DESCRIPTION "Log memory allocations and frees to a file"
+
+EXPORTS
+   Finish
+   ;
