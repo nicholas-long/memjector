@@ -19,8 +19,8 @@ void Initialize(HMODULE hModule)
    global::thisModuleBase = rec.ModuleInfo.Base;
    global::thisModuleSize = rec.ModuleInfo.Size;
 
-   global::FileLogManager.Open(Utility::GetFileInThisModulePath(LOG_DATA_FILE_NAME));
-   global::ModuleManager.TrackInitialModules();
+   //global::FileLogManager.Open(Utility::GetFileInThisModulePath(LOG_DATA_FILE_NAME));
+   //global::ModuleManager.TrackInitialModules();
    hooks::SetAllHooks();
 }
 

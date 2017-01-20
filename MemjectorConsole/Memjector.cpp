@@ -117,7 +117,7 @@ int _tmain(int argc, _TCHAR* argv[])
       return 1;
    }
 
-   cout << "Memory logging has begun.  Press enter when you are ready to stop logging and begin analysis." << endl;
+   cout << "Memory logging has begun.  Press enter when you are ready to stop logging." << endl;
    cin.get();
    cin.get();
 
@@ -131,23 +131,23 @@ int _tmain(int argc, _TCHAR* argv[])
    //else
    //   Uninject(processId, DLL_FILENAME_LOGGER);
 
-   string keepGoing;
-   do
-   {
-      stringstream ss;
-      ss << "\"" << GetFileInThisModulePath(EXE_FILENAME_ANALYZE) << "\" " 
-         << processId << " " << LOG_DATA_FILE_NAME;
-      string cmdLine = ss.str();
-      system(cmdLine.c_str());
+   //string keepGoing;
+   //do
+   //{
+   //   stringstream ss;
+   //   ss << "\"" << GetFileInThisModulePath(EXE_FILENAME_ANALYZE) << "\" " 
+   //      << processId << " " << LOG_DATA_FILE_NAME;
+   //   string cmdLine = ss.str();
+   //   system(cmdLine.c_str());
 
-      cout << "Analysis complete." << endl
-         << "You may run analysis again with different configurations specified in the config.json file." << endl
-         << "Would you like to do this?" << endl;
+   //   cout << "Analysis complete." << endl
+   //      << "You may run analysis again with different configurations specified in the config.json file." << endl
+   //      << "Would you like to do this?" << endl;
 
-      cout << "Answer (Y/N): ";
-      cin >> keepGoing;
-   }
-   while (keepGoing[0] == 'Y' || keepGoing[0] == 'y');
+   //   cout << "Answer (Y/N): ";
+   //   cin >> keepGoing;
+   //}
+   //while (keepGoing[0] == 'Y' || keepGoing[0] == 'y');
 
    return 0;
 }

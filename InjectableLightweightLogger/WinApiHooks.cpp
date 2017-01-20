@@ -4,6 +4,7 @@
 #include <boost/thread/locks.hpp>
 #include <boost/thread/recursive_mutex.hpp>
 #include <boost/thread.hpp>
+#include <fstream>
 
 namespace hooks
 {
@@ -20,6 +21,9 @@ namespace hooks
 
       funcptrFreeLibrary FreeLibrary;
       funcptrFreeLibraryAndExitThread FreeLibraryAndExitThread;
+
+
+		funcptrGetProcAddress GetProcAddress;
    }
 
 
@@ -258,6 +262,26 @@ namespace hooks
       return retVal;
    }
 
+	FARPROC WINAPI GetProcAddressHook(
+		_In_ HMODULE hModule,
+		_In_ LPCSTR  lpProcName
+	)
+	{
+		using std::ofstream;
+		using std::ios;
+		char filename[500];
+		GetModuleFileNameA(hModule, filename, 500);
+		ofstream out(Utility::GetFileInThisModulePath("GetProcAddress.log"), ios::out | ios::app);
+
+		FARPROC result = original::GetProcAddress(hModule, lpProcName);
+
+		out << ((DWORD)result ? "SUCCESS " : "FAILURE ") << lpProcName << " " << filename << std::endl;
+
+		return result;
+	}
+
+
+
    void SetAllHooks(void)
    {
       auto& hm = global::HookManager;
@@ -272,13 +296,15 @@ namespace hooks
 
       HMODULE kernelHmod = GetModuleHandleA("kernel32.dll");
 
-      hm.InsertHook(GetProcAddress(kernelHmod, "LoadLibraryW"), hooks::LoadLibraryW, (void**)&original::LoadLibraryW);
-      hm.InsertHook(GetProcAddress(kernelHmod, "LoadLibraryExW"), hooks::LoadLibraryExW, (void**)&original::LoadLibraryExW);
+      //hm.InsertHook(GetProcAddress(kernelHmod, "LoadLibraryW"), hooks::LoadLibraryW, (void**)&original::LoadLibraryW);
+      //hm.InsertHook(GetProcAddress(kernelHmod, "LoadLibraryExW"), hooks::LoadLibraryExW, (void**)&original::LoadLibraryExW);
 
-      hm.InsertHook(GetProcAddress(kernelHmod, "LoadLibraryA"), hooks::LoadLibraryA, (void**)&original::LoadLibraryA);
-      hm.InsertHook(GetProcAddress(kernelHmod, "LoadLibraryExA"), hooks::LoadLibraryExA, (void**)&original::LoadLibraryExA);
+      //hm.InsertHook(GetProcAddress(kernelHmod, "LoadLibraryA"), hooks::LoadLibraryA, (void**)&original::LoadLibraryA);
+      //hm.InsertHook(GetProcAddress(kernelHmod, "LoadLibraryExA"), hooks::LoadLibraryExA, (void**)&original::LoadLibraryExA);
 
-      hm.InsertHook(GetProcAddress(kernelHmod, "FreeLibrary"), hooks::FreeLibrary, (void**)&original::FreeLibrary);
-      hm.InsertHook(GetProcAddress(kernelHmod, "FreeLibraryAndExitThread"), hooks::FreeLibraryAndExitThread, (void**)&original::FreeLibraryAndExitThread);
+      //hm.InsertHook(GetProcAddress(kernelHmod, "FreeLibrary"), hooks::FreeLibrary, (void**)&original::FreeLibrary);
+      //hm.InsertHook(GetProcAddress(kernelHmod, "FreeLibraryAndExitThread"), hooks::FreeLibraryAndExitThread, (void**)&original::FreeLibraryAndExitThread);
+
+		hm.InsertHook(GetProcAddress(kernelHmod, "GetProcAddress"), hooks::GetProcAddressHook, (void**)&original::GetProcAddress);
    }
 }

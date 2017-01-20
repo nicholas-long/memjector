@@ -16,6 +16,12 @@ namespace hooks
 	typedef BOOL(APIENTRY *funcptrFreeLibrary)(HMODULE);
 	typedef VOID(APIENTRY *funcptrFreeLibraryAndExitThread)(HMODULE,DWORD);
 
+	typedef FARPROC(APIENTRY *funcptrGetProcAddress)(HMODULE, LPCSTR);
+	//FARPROC WINAPI GetProcAddressHook(
+	//	_In_ HMODULE hModule,
+	//	_In_ LPCSTR  lpProcName
+	//)
+
 	//HMODULE WINAPI LoadLibrary(
 	//	_In_  LPCTSTR lpFileName
 	//	);
