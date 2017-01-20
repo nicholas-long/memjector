@@ -42,3 +42,5 @@
 *.idb
 *.exp
 *.ipch
+*.unsuccessfulbuild
+*.opendb
