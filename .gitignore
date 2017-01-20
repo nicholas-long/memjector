@@ -36,3 +36,9 @@
 *.filters
 *.pdb
 *.opensdf
+*.suo
+*.vc.db
+*.ilk
+*.idb
+*.exp
+*.ipch
